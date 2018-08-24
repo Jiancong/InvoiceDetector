@@ -1,0 +1,166 @@
+<!DOCTYPE html >
+<html lang="en">
+<head >
+    <meta charset="utf-8">
+    <title>发票验证平台</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="/static/css/swiper.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/invoiceVerify.css"/>
+
+    <!-- Demo styles -->
+    <style>
+        body {
+            width: 100%;
+            background: #ffffff;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            color:#000;
+            margin: 0 auto;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+<div>
+<h1 style="margin-left: 45%; color: #000066; height:60px">发票验证平台
+<!--button id = "getVerify_list" style="margin-left: 5%;margin-top:30px;font-size: 20px" onclick="getTaskList()">
+获取发票列表 </button-->
+</h1>
+
+
+<h3 style="margin-left: 60%; color: #343a40; height:30px">
+    <a href="/static/invoiceList.html" >查看发票列表</a>
+</h3>
+
+</div>
+<div class="picture">
+    <div class="picture_bottom">
+        <div class="picture_left">
+            <div class="picture_img">
+                <div class="picture_img2">
+                  <img id = "imgShow" src="/static/img/example_invoice.png" class="showImg" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="picture_center" >
+        <div class="picture_info" style=" margin-left: 25%; margin-top:20px">
+            <h4>发票代码：
+                <img id = "invoiceID" src="/static/img/example_invoceID.png" width="160" height="30" style="height:30px;display: inline-block; vertical-align: middle;" />
+                <input type="text" style="font-size:16px; width:150px; height:25px; display: inline-block; vertical-align: middle;" id="textInvoiceID" value="1100094140" >
+            </h4>
+        </div>
+
+        <div class="picture_info" style=" margin-left: 25%">
+            <h4>发票号码：
+                <img id = "invoiceNum" src = "/static/img/example_invoceNum.png"   width="160" height="30" style="height:30px;display: inline-block; vertical-align: middle;" />
+                <input type="text" style=" font-size:16px; width:150px; height:25px; display: inline-block; vertical-align: middle;" id="textInvoiceNum" value="87654321">
+                <input type="submit" id = "uploadInvoiceInfo" onclick="" style="background: #3b5998;width: 100px; height: 34px; color: #fff;letter-spacing: 1px; border-bottom: 1px solid #2d78f4; font-size: 16px" value="确认提交" class="s_btn">
+
+            </h4>
+        </div>
+
+    </div>
+    <!-- Swiper -->
+    <div class="swiper-container">
+        <div class="swiper-wrapper"></div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+
+</div>
+
+<script src="/static/js/swiper.min.js"></script>
+<script src="/static/js/invoiceVerify.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/js/swiper.min.js"></script>
+<script src="/static/js/jquery-1.4.2.js" type="text/javascript" charset="utf-8"></script>
+
+<script>
+ $(document).ready(function(){
+    var usr_id = 2;
+    var tasklist = getTaskList(usr_id);
+    var tasklistNum = getTasklistNum(usr_id);
+    var taskIdTxt;
+    onload();
+
+    function onload(){
+
+        var swiper = new Swiper('.swiper-container', {
+                slidesPerView:5,
+                centeredSlides: true,
+                spaceBetween: tasklistNum,
+                pagination: {
+                    el: '.swiper-pagination',
+                    type: 'fraction',
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                virtual: {
+                    slides: (function () {
+                        var slides = [];
+                        for (var i = 0; i<tasklistNum; i+=1) {
+                            //slides.push("Slide "+(tasklist[i].slice(0,5)));
+                            num = i + 1
+                            slides.push(" 发票 " + num);
+                        }
+                    return slides;
+                    }()),
+                },
+                on:{
+                    click:function () {
+                        if (this.clickedIndex == undefined)
+                        {
+                            console.log("index underfined")
+                        }
+                        else
+                        {
+                            var task_ID = tasklist[this.clickedIndex];
+                            taskIdTxt = task_ID;
+                            // alert(task_ID);
+                            showNumAndID(usr_id,task_ID);
+                        }
+                    }
+                }
+
+        });
+    }
+
+    $("#uploadInvoiceInfo").click(function() {
+        var newInvoiceNum =  document.getElementById("textInvoiceNum").value;
+        var newInvoiceID =  document.getElementById("textInvoiceID").value;
+        //alert(newInvoiceNum + "   " + newInvoiceID);
+
+        strUrl = "http://180ly66419.iok.la:5000/api/insert/result?1=1&user_id=" + usr_id; 
+		strJson = JSON.stringify(GetJsonData(usr_id, taskIdTxt, newInvoiceNum, newInvoiceID));
+
+		$.post(strUrl, strJson,
+			function(data,status){
+                var msg = (status == "success") ?"成功" : "失败";
+				alert("修改" + msg);
+            }, "json"
+        );
+
+    });
+
+    function GetJsonData(usr_id, task_id,docnumber_ocr_result,doctype_ocr_result ) {
+        var json = {
+            "docnumber_ocr_result": docnumber_ocr_result,
+            "doctype_ocr_result":doctype_ocr_result,
+            "task_id": task_id,
+            "user_id": usr_id
+        };
+        return json;
+    }
+
+});
+</script>
+</body>
+</html>

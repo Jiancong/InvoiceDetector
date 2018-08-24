@@ -1,0 +1,131 @@
+* {
+    margin: 0;
+    padding: 0
+}
+a {
+    text-decoration: none
+}
+
+.invoice_title {
+    width: 976px;
+    height: 150px
+}
+
+.picture {
+    width: 850px;
+    height: 450px;
+    font-family: "宋体";
+    left: 0;
+    top: 150px;
+    bottom: 0;
+    right: 0;
+    margin: 0 auto
+}
+
+.picture .picture_bottom {
+    width: 100%;
+    height: 400px;
+    background: #fff
+}
+
+.picture .picture_bottom .picture_left {
+    width: 100%;
+    height: 100%;
+    float: left
+}
+
+.picture .picture_bottom .picture_left .picture_img {
+    position: relative;
+    left: 50px;
+
+    width: 90%;
+    height: 100%;
+    display: table;
+    text-align: center
+}
+
+.picture_bottom .picture_left .picture_img .picture_img2 {
+    width: 100%;
+    height: 100%;
+    display: table-cell;
+    vertical-align: middle
+}
+
+.picture_bottom .picture_left .picture_img .picture_img2 img {
+    max-width: 658px;
+    max-height: 400px
+}
+
+.picture_bottom .picture_left .prev {
+    display: inline-block;
+    width: 17px;
+    height: 33px;
+    position: relative;
+    top: -178px;
+    left: 18px
+}
+
+.picture_bottom .picture_left .next {
+    display: inline-block;
+    width: 17px;
+    height: 33px;
+    position: relative;
+    top: -178px;
+    right: 18px;
+    float: right
+}
+
+
+.picture .picture_bottom .picture_center {
+    top:20px;
+    width: 771px;
+    height: 50px;
+}
+
+.picture .picture_bottom .picture_center .picture_info {
+    width: 771px;
+    top:20px;
+    display: table-cell;
+    text-align: center
+}
+.picture .picture_bottom .picture_center .picture_info  .s_btn {
+    width: 100px;
+    height: 34px;
+    color: #fff;
+    letter-spacing: 1px;
+    background: #3385ff;
+    border-bottom: 1px solid #2d78f4;
+    outline: medium;
+    -webkit-appearance: none;
+    -webkit-border-radius: 0;
+    font-size: 14px;
+    padding: 0;
+        border: 0;
+    cursor: pointer;
+}
+
+.swiper-container {
+  width: 100%;
+  height: 100px;
+  margin: 20px auto;
+}
+.swiper-slide {
+  text-align: center;
+  font-size: 16px;
+  background: #3b5998;
+    color: #ffffff;
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
